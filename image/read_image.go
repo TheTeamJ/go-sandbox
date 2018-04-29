@@ -20,6 +20,7 @@ func main() {
 	}
 	img, imgFormat, _ := image.Decode(file)
 	fmt.Println(imgFormat)
+
 	// 画像情報
 	fmt.Println(img.At(0, 0))
 	bounds := img.Bounds()
@@ -27,5 +28,14 @@ func main() {
 	fmt.Printf("%d, %d\n", bounds.Max.X, bounds.Max.Y)
 
 	background := imaging.New(bounds.Max.X, bounds.Max.Y, color.Gray{222})
-	fmt.Println(background)
+	fmt.Println(background.At(1, 1))
+
+	// グレー化
+	toGray(img)
+
+	// saveAsBmp(img, "./out/img.bmp")
+	// saveAsPng(img, "./out/img.png")
+	saveAsMat(img, "./out/flatten.mat")
+	fmt.Println("!!")
+	fmt.Println(img)
 }
