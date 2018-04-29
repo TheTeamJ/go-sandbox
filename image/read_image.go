@@ -3,15 +3,17 @@ package main
 import (
 	"fmt"
 	"image"
-	_ "image/color"
+	"image/color"
 	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"
 	"os"
+
+	"github.com/disintegration/imaging"
 )
 
 func main() {
-	file, err := os.Open("./data/go40.png")
+	file, err := os.Open("./raw/go40.png")
 	defer file.Close()
 	if err != nil {
 		return
@@ -20,6 +22,10 @@ func main() {
 	fmt.Println(imgFormat)
 	// 画像情報
 	fmt.Println(img.At(0, 0))
-	fmt.Printf("%d, %d\n", img.Bounds().Min.X, img.Bounds().Min.Y)
-	fmt.Printf("%d, %d\n", img.Bounds().Max.X, img.Bounds().Max.Y)
+	bounds := img.Bounds()
+	fmt.Printf("%d, %d\n", bounds.Min.X, bounds.Min.Y)
+	fmt.Printf("%d, %d\n", bounds.Max.X, bounds.Max.Y)
+
+	background := imaging.New(bounds.Max.X, bounds.Max.Y, color.Gray{222})
+	fmt.Println(background)
 }
