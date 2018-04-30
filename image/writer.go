@@ -46,5 +46,5 @@ func saveAsMat(img image.Image, path string) {
 	imgMat.PixelColors = pixels
 
 	outputJson, _ := json.Marshal(imgMat)
-	_ = ioutil.WriteFile("./out/img.json", outputJson, 0644)
+	_ = ioutil.WriteFile(path, outputJson, 0644)
 }

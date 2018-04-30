@@ -35,7 +35,9 @@ func main() {
 
 	// saveAsBmp(img, "./out/img.bmp")
 	// saveAsPng(img, "./out/img.png")
-	saveAsMat(img, "./out/flatten.mat")
-	fmt.Println("!!")
-	fmt.Println(img)
+	saveAsMat(img, "./out/img.json")
+
+	// 画像を生成する
+	generateBmpImage("./out/img.json", "./out/out.bmp")
+	// fmt.Println(img)
 }
