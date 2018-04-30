@@ -30,8 +30,8 @@ func main() {
 	background := imaging.New(bounds.Max.X, bounds.Max.Y, color.Gray{222})
 	fmt.Println(background.At(1, 1))
 
-	// グレー化
-	toGray(img)
+	// 二値化
+	img = binarize(img)
 
 	// saveAsBmp(img, "./out/img.bmp")
 	// saveAsPng(img, "./out/img.png")
