@@ -17,7 +17,7 @@ type Stratum struct {
 	height      int
 }
 
-func stratum(dirPath string, pageNums int) *image.RGBA {
+func stratum_encode(dirPath string, pageNums int) *image.RGBA {
 	res := initStratum(dirPath)
 	for p := 0; p < pageNums; p++ {
 		res = putColors(res, dirPath, p)
@@ -68,11 +68,11 @@ func putColors(res Stratum, dirPath string, pageNum int) Stratum {
 
 	// 更新するPixelColorsのidx
 	idx := 0
-	if pageNum < 7 {
+	if pageNum <= 7 {
 		idx = 0
-	} else if pageNum < 15 {
+	} else if pageNum <= 15 {
 		idx = 1
-	} else if pageNum < 23 {
+	} else if pageNum <= 23 {
 		idx = 2
 	}
 
