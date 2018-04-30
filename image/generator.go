@@ -10,11 +10,7 @@ import (
 )
 
 func generateBmpImage(path string, outputPath string) {
-	file, err := ioutil.ReadFile(path)
-	if err != nil {
-		return
-	}
-
+	file, _ := ioutil.ReadFile(path)
 	imageMat := ImageMat{}
 	json.Unmarshal(file, &imageMat)
 
