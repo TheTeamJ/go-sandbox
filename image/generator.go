@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func generateBmpImage(path string, outputPath string) {
+func generateBmpImage(path string, outputPath string) *image.RGBA {
 	file, _ := ioutil.ReadFile(path)
 	imageMat := ImageMat{}
 	json.Unmarshal(file, &imageMat)
@@ -19,6 +19,7 @@ func generateBmpImage(path string, outputPath string) {
 	outFile, _ := os.OpenFile(outputPath, os.O_WRONLY|os.O_CREATE, 0600)
 	defer outFile.Close()
 	bmp.Encode(outFile, img)
+	return img
 }
 
 func coloring(pxColors [][][]int) *image.RGBA {

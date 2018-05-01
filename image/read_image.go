@@ -8,12 +8,13 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 	"os"
+	"strconv"
 
 	"github.com/disintegration/imaging"
 )
 
-func main() {
-	file, err := os.Open("./raw/go40.png")
+func main2() {
+	file, err := os.Open("./out/comic1.bmp")
 	defer file.Close()
 	if err != nil {
 		return
@@ -31,13 +32,29 @@ func main() {
 	fmt.Println(background.At(1, 1))
 
 	// 二値化
-	img = binarize(img)
+	// img = binarize(img)
 
-	// saveAsBmp(img, "./out/img.bmp")
-	// saveAsPng(img, "./out/img.png")
 	saveAsMat(img, "./out/img.json")
-
 	// 画像を生成する
-	generateBmpImage("./out/img.json", "./out/out.bmp")
-	// fmt.Println(img)
+	// img = generateBmpImage("./out/img.json", "./out/out.bmp")
+}
+
+func main3() {
+	img := stratum_encode("./raw/tonkatsu", 22)
+	saveAsBmp(img, "./out/tonkatsu.bmp")
+	saveAsPng(img, "./out/tonkatsu.png")
+}
+
+func main() {
+	stratum_decode("./out/tonkatsu.png", "./out/tonkatsu")
+}
+
+func main4() {
+	for p := 0; p < 22; p++ {
+		file, _ := os.Open("./raw/tonkatsu/" + strconv.Itoa(p) + ".png")
+		defer file.Close()
+		img, _, _ := image.Decode(file)
+		img = binarize(img)
+		saveAsPng(img, "./out/tonkatsuBin/"+strconv.Itoa(p)+".png")
+	}
 }
