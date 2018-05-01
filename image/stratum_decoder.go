@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func stratum_decode(srcPath string, outDirPath string, high_quality bool) {
+func stratum_decode(srcPath string, outDirPath string) {
 	file, _ := os.Open(srcPath)
 	defer file.Close()
 	img, _, _ := image.Decode(file)
@@ -29,21 +29,17 @@ func stratum_decode(srcPath string, outDirPath string, high_quality bool) {
 				gray := getBlackOrWhite(c, layer)
 				if gray == 0 {
 					// 黒色
-					outImg.Set(x, y, color.Gray{uint8(0)})
+					outImg.Set(x, y, color.RGBA{uint8(0), uint8(0), uint8(0), uint8(255)})
 				} else {
-					// 白色
-					outImg.Set(x, y, color.Gray{uint8(255)})
+					// 透明
+					outImg.Set(x, y, color.RGBA{uint8(0), uint8(0), uint8(0), uint8(0)})
 				}
 			}
 		}
 
-		outImgPathName := outDirPath + "/" + strconv.Itoa(layer)
-		fmt.Println(outImgPathName)
-		if high_quality {
-			saveAsBmp(outImg, outImgPathName+".bmp")
-		} else {
-			saveAsPng(outImg, outImgPathName+".png")
-		}
+		outImgPath := outDirPath + "/" + strconv.Itoa(layer) + ".png"
+		fmt.Println(outImgPath)
+		saveAsPng(outImg, outImgPath)
 	}
 }
 
